@@ -3,6 +3,10 @@
     {
       "source": "/",
       "destination": "/main.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/$1"
     }
   ]
 }
