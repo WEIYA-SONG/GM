@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National Guard</title>
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #000;
+        }
+        #contentIframe {
+            width: 100%;
+            border: none;
+            min-height: 100vh;
+            display: block;
+        }
+        /* 播放器深色样式 */
+        .aplayer {
+            background: #1a1a1a !important;
+            color: #ffffff !important;
+        }
+        .aplayer .aplayer-info .aplayer-music {
+            color: #fff;
+        }
+        .aplayer .aplayer-lrc p {
+            color: #cccccc;
+        }
+        .aplayer-fixed .aplayer-miniswitcher {
+            background-color: #5177FF !important;
+        }
+        /* 语言切换按钮样式 */
+        .lang-btn-wrap {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+        #langToggle {
+            background: #0066ff;
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        #langToggle:hover {
+            background: #2378ff;
+        }
+    </style>
+</head>
+<body>
+    <!-- 中英文切换按钮 -->
+    <div class="lang-btn-wrap">
+        <button id="langToggle">切换中文</button>
+    </div>
+
+    <iframe id="contentIframe" name="contentIframe" src="index.html" scrolling="auto"></iframe>
+
+    <!-- 全局常驻播放器 -->
+    <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+    <meting-js
+        server="tencent"
+        type="playlist"
+        id="9735999538"
+        fixed="true"
+        theme="#5177FF"
+        autoplay="false"
+        loop="all"
+        order="random"
+        lrc-type="0"
+        showlrc="1"
+        preload="auto"
+        volume="0.6"
+        id="globalPlayer"
+    ></meting-js>
+
+    <!-- 背景音乐自动播放 -->
+    <script>
+        document.addEventListener('click', function playAudio() {
+            const player = document.querySelector('#globalPlayer').aplayer;
+            if (player && player.paused) player.play();
+            document.removeEventListener('click', playAudio);
+        }, false);
+    </script>
+
+    <!-- 核心：中英文切换脚本 -->
+    <script>
+        const langBtn = document.getElementById('langToggle');
+        // 读取本地存储的语言，默认英文
+        let currentLang = localStorage.getItem('siteLang') || 'en';
+
+        // 初始化按钮文字
+        function initLangBtn() {
+            if(currentLang === 'en'){
+                langBtn.innerText = '切换中文';
+            }else{
+                langBtn.innerText = '切换英文';
+            }
+            // 向iframe发送语言指令
+            sendLangToIframe(currentLang);
+        }
+
+        // 发送语言参数给iframe内子页面
+        function sendLangToIframe(lang) {
+            const iframe = document.getElementById('contentIframe');
+            iframe.contentWindow.postMessage({type:'setLang', lang: lang}, '*');
+        }
+
+        // 点击切换语言
+        langBtn.addEventListener('click', ()=>{
+            currentLang = currentLang === 'en' ? 'zh' : 'en';
+            localStorage.setItem('siteLang', currentLang);
+            initLangBtn();
+        })
+
+        // iframe切换页面时重新同步语言
+        document.getElementById('contentIframe').onload = function(){
+            sendLangToIframe(currentLang);
+        }
+
+        // 初始化
+        initLangBtn();
+    </script>
+</body>
+</html>

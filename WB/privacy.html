@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <span class="lang en">Privacy - National Guard</span>
+        <span class="lang zh">隐私政策 - 国民警卫队</span>
+    </title>
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 复用核心样式，与imprint.html统一 */
+        .content-container {
+            max-width: 1200px;
+            margin: 120px auto 50px;
+            padding: 2rem;
+        }
+
+        .content-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .content-header h2 {
+            font-size: 3rem;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .content-header p {
+            color: #888;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .content-card {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(0, 102, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 102, 255, 0.2);
+        }
+
+        .content-title {
+            color: #0066ff;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .content-text {
+            color: #888;
+            line-height: 1.6;
+        }
+
+        .content-text ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+
+        .content-text li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .content-text li::before {
+            content: '•';
+            color: #0066ff;
+            position: absolute;
+            left: 0;
+        }
+
+        /* 多语言控制 */
+        .lang.zh {
+            display: none;
+        }
+        .lang.en {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <img src="img/GMJWD.png" alt="logo" style="height:45px;">
+            <span>
+                <span class="lang en">ARMY NATIONAL GUARD 40TH MECHANIZED INFANTRY DIVISION</span>
+                <span class="lang zh">陆军国民警卫队第40机械化步兵师</span>
+            </span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">
+                <span class="lang en">Home</span>
+                <span class="lang zh">首页</span>
+            </a>
+            <a href="rules.html">
+                <span class="lang en">Rules</span>
+                <span class="lang zh">规章制度</span>
+            </a>
+            <a href="team.html">
+                <span class="lang en">Team</span>
+                <span class="lang zh">团队</span>
+            </a>
+            <a href="discord.html">
+                <span class="lang en">Discord</span>
+                <span class="lang zh">社群</span>
+            </a>
+            <a href="privacy.html" class="active">
+                <span class="lang en">Privacy</span>
+                <span class="lang zh">隐私政策</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="content-container">
+        <div class="content-header">
+            <h2>
+                <span class="lang en">Privacy Policy</span>
+                <span class="lang zh">隐私政策</span>
+            </h2>
+            <p>
+                <span class="lang en">Information about data collection and usage</span>
+                <span class="lang zh">关于数据收集和使用的说明</span>
+            </p>
+        </div>
+
+        <div class="content-grid">
+            <div class="content-card">
+                <h3 class="content-title">
+                    <i class="fas fa-database"></i>
+                    <span class="lang en">Data Collection</span>
+                    <span class="lang zh">数据收集</span>
+                </h3>
+                <div class="content-text">
+                    <p>
+                        <span class="lang en">We collect the following data:</span>
+                        <span class="lang zh">我们收集以下数据：</span>
+                    </p>
+                    <ul>
+                        <li>
+                            <span class="lang en">KOOK Username and Unique User ID</span>
+                            <span class="lang zh">KOOK用户名和唯一用户ID</span>
+                        </li>
+                        <li>
+                            <span class="lang en">Team activity statistics, training history, and personal achievement information</span>
+                            <span class="lang zh">团队活动统计、训练记录和个人成就信息</span>
+                        </li>
+                        <li>
+                            <span class="lang en">Website and Community Service Interaction Logs</span>
+                            <span class="lang zh">网站和社群服务交互日志</span>
+                        </li>
+                        <li>
+                            <span class="lang en">Support-related information submitted by users, such as technical inquiries and feedback on issues.</span>
+                            <span class="lang zh">用户提交的支持类信息，例如技术咨询和问题反馈。</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3 class="content-title">
+                    <i class="fas fa-cookie"></i>
+                    <span class="lang en">Cookies</span>
+                    <span class="lang zh">Cookies 说明</span>
+                </h3>
+                <div class="content-text">
+                    <p>
+                        <span class="lang en">We use cookies to:</span>
+                        <span class="lang zh">我们使用Cookies来：</span>
+                    </p>
+                    <ul>
+                        <li>
+                            <span class="lang en">Remember your preferences</span>
+                            <span class="lang zh">记住您的偏好设置</span>
+                        </li>
+                        <li>
+                            <span class="lang en">Improve website performance</span>
+                            <span class="lang zh">提升网站性能</span>
+                        </li>
+                        <li>
+                            <span class="lang en">Analyze website usage</span>
+                            <span class="lang zh">分析网站使用情况</span>
+                        </li>
+                        <li>
+                            <span class="lang en">Provide personalized content</span>
+                            <span class="lang zh">提供个性化内容</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3 class="content-title">
+                    <i class="fas fa-shield-alt"></i>
+                    <span class="lang en">Safety First</span>
+                    <span class="lang zh">安全须知</span>
+                </h3>
+                <div class="content-text">
+                    <p>
+                        <span class="lang en">We hope:</span>
+                        <span class="lang zh">我们提醒您：</span>
+                    </p>
+                    <ul>
+                        <li>
+                            <span class="lang en">Do not disclose personal information within the IC</span>
+                            <span class="lang zh">请勿在角色扮演场景中泄露个人信息</span>
+                        </li>
+                        <li>
+                            <span class="lang en">Drink plenty of water and get plenty of rest; your health comes first</span>
+                            <span class="lang zh">多喝水、多休息，您的健康是第一位的</span>
+                        </li>
+                        <li>
+                            <span class="lang en">A game is just a game; reality is your world.</span>
+                            <span class="lang zh">游戏只是游戏，现实才是您的生活。</span>
+                        </li>
+                        <li>
+                            <span class="lang en">Please do not trust virtual information</span>
+                            <span class="lang zh">请不要轻信虚拟信息</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3 class="content-title">
+                    <i class="fas fa-user-shield"></i>
+                    <span class="lang en">Your Rights</span>
+                    <span class="lang zh">您的权利</span>
+                </h3>
+                <div class="content-text">
+                    <p>
+                        <span class="lang en">You have the right to:</span>
+                        <span class="lang zh">您拥有以下权利：</span>
+                    </p>
+                    <ul>
+                        <li>
+                            <span class="lang en">Access your personal data</span>
+                            <span class="lang zh">访问您的个人数据</span>
+                        </li>
+                        <li>
+                            <span class="lang en">Request data correction</span>
+                            <span class="lang zh">要求更正数据</span>
+                        </li>
+                        <li>
+                            <span class="lang en">Request data deletion</span>
+                            <span class="lang zh">要求删除数据</span>
+                        </li>
+                        <li>
+                            <span class="lang en">Object to data processing</span>
+                            <span class="lang zh">反对数据处理</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="imprint.html">
+                    <span class="lang en">Imprint</span>
+                    <span class="lang zh">版权声明</span>
+                </a>
+                <a href="privacy.html">
+                    <span class="lang en">Privacy</span>
+                    <span class="lang zh">隐私政策</span>
+                </a>
+            </div>
+            <div class="footer-copyright">
+                <span class="lang en">&copy; Signed by Weiya</span>
+                <span class="lang zh">&copy; 维亚 签署</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 统一多语言逻辑
+        const defaultLang = localStorage.getItem('siteLang') || 'en';
+
+        function setSiteLang(lang) {
+            const enTexts = document.querySelectorAll('.lang.en');
+            const zhTexts = document.querySelectorAll('.lang.zh');
+            
+            enTexts.forEach(item => {
+                item.style.display = lang === 'en' ? (item.tagName === 'LI' || item.tagName === 'P' ? 'block' : 'inline') : 'none';
+            });
+            zhTexts.forEach(item => {
+                item.style.display = lang === 'zh' ? (item.tagName === 'LI' || item.tagName === 'P' ? 'block' : 'inline') : 'none';
+            });
+            
+            localStorage.setItem('siteLang', lang);
+        }
+
+        setSiteLang(defaultLang);
+
+        window.addEventListener('message', function (event) {
+            if (event.data.type === 'setLang') {
+                setSiteLang(event.data.lang);
+            }
+        });
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>
