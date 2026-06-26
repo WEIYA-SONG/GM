@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rules - National Guard</title>
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .rules-container {
+            max-width: 1200px;
+            margin: 120px auto 50px;
+            padding: 2rem;
+        }
+
+        .rules-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .rules-header h2 {
+            font-size: 3rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .rules-header p {
+            color: #888;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .rule-card {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .rule-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(0, 102, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .rule-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .rule-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 102, 255, 0.2);
+            border-color: rgba(0, 102, 255, 0.3);
+        }
+
+        .rule-card .rule-number {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 3rem;
+            font-weight: bold;
+            color: rgba(0, 102, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .rule-card:hover .rule-number {
+            transform: scale(1.2);
+            color: rgba(0, 102, 255, 0.2);
+        }
+
+        .rule-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .rule-card h3 i {
+            font-size: 1.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .rule-card:hover h3 i {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .rule-card p {
+            line-height: 1.6;
+            color: #888;
+            margin-bottom: 1rem;
+        }
+
+        .rule-card .rule-details {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .rule-card .rule-details ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .rule-card .rule-details li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #888;
+        }
+
+        .rule-card .rule-details li::before {
+            content: '•';
+            color: var(--secondary-color);
+            position: absolute;
+            left: 0;
+        }
+
+        .rule-card .rule-details li:hover {
+            color: var(--text-color);
+            transform: translateX(5px);
+            transition: all 0.3s ease;
+        }
+
+        .rule-card:nth-child(1) { animation-delay: 0.1s; }
+        .rule-card:nth-child(2) { animation-delay: 0.2s; }
+        .rule-card:nth-child(3) { animation-delay: 0.3s; }
+        .rule-card:nth-child(4) { animation-delay: 0.4s; }
+        .rule-card:nth-child(5) { animation-delay: 0.5s; }
+        .rule-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .rules-footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 102, 255, 0.2);
+            animation: fadeInUp 0.8s ease 0.7s forwards;
+            opacity: 0;
+        }
+
+        .rules-footer p {
+            color: #888;
+            margin-bottom: 1rem;
+        }
+
+        .rules-footer .warning {
+            color: #ff4444;
+            font-weight: bold;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+<style>
+.lang.zh {
+    display: none;
+}
+.lang.en {
+    display: inline;
+}
+</style>
+</head>
+<script>
+const defaultLang = localStorage.getItem('siteLang') || 'en';
+
+function setSiteLang(lang) {
+  const enTexts = document.querySelectorAll('.lang.en');
+  const zhTexts = document.querySelectorAll('.lang.zh');
+  if (lang === 'en') {
+    enTexts.forEach(item => item.style.display = 'inline');
+    zhTexts.forEach(item => item.style.display = 'none');
+  } else {
+    enTexts.forEach(item => item.style.display = 'none');
+    zhTexts.forEach(item => item.style.display = 'inline');
+  }
+}
+
+setSiteLang(defaultLang);
+
+window.addEventListener('message', function (event) {
+  if (event.data.type === 'setLang') {
+    setSiteLang(event.data.lang);
+  }
+});
+</script>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+    <img src="img/GMJWD.png" alt="logo" style="height:45px;">
+    <span>
+        <span class="lang en">ARMY NATIONAL GUARD 40TH MECHANIZED INFANTRY DIVISION</span>
+        <span class="lang zh">陆军国民警卫队第40机械化步兵师</span>
+    </span>
+</div>
+        <div class="nav-links">
+    <a href="index.html" class="active">
+        <span class="lang en">Home</span>
+        <span class="lang zh">首页</span>
+    </a>
+    <a href="rules.html">
+        <span class="lang en">Rules</span>
+        <span class="lang zh">规章制度</span>
+    </a>
+    <a href="team.html">
+        <span class="lang en">Team</span>
+        <span class="lang zh">团队</span>
+    </a>
+    <a href="discord.html">
+        <span class="lang en">Discord</span>
+        <span class="lang zh">社群</span>
+    </a>
+</div>
+    </nav>
+
+    <div class="rules-container">
+        <div class="rules-header">
+            <h2>
+    <span class="lang en">San Andreas Uniform Code of Military Justice</span>
+    <span class="lang zh">圣安地列斯统一军事司法法典</span>
+</h2>
+<p style="color:#888;">
+    <span class="lang en">San Andreas Uniform Code of MilitaryJustice (SA-UCMJ)</span>
+    <span class="lang zh">圣安地列斯统一军事司法法典（SA-UCMJ）</span>
+</p>
+        </div>
+        
+       <div class="feature-card">
+    <div class="feature-icon">
+        <i class="fas fa-book"></i>
+    </div>
+    <div class="feature-content">
+        <h3>
+            <span class="lang en">General Provisions</span>
+            <span class="lang zh">总则</span>
+        </h3>
+        <p>
+            <span class="lang en">This chapter defines the official name, applicable scope, basic legal principles, commander-in-chief authority and independence of military judiciary of SA-UCMJ.</span>
+            <span class="lang zh">本章规定了《圣安地列斯统一军事司法法典》的正式名称、适用范围、基本法律原则、最高统帅权限以及军事司法机关的独立性。</span>
+        </p>
+        <ul style="margin-top:1rem;padding-left:1.2rem;color:#ccc;line-height:1.6;">
+            <li>
+                <span class="lang en">The code applies to all members of San Andreas National Guard and state militia</span>
+                <span class="lang zh">本法典适用于圣安地列斯国民警卫队及州民兵所有现役人员</span>
+            </li>
+            <li>
+                <span class="lang en">Military justice shall follow presumption of innocence and due process</span>
+                <span class="lang zh">军事司法遵循无罪推定原则与正当程序原则</span>
+            </li>
+            <li>
+                <span class="lang en">The Governor serves as Commander-in-Chief of all state armed forces</span>
+                <span class="lang zh">州长为本州全部武装力量的最高统帅</span>
+            </li>
+            <li>
+                <span class="lang en">Military courts exercise judicial power independently without improper interference</span>
+                <span class="lang zh">军事法院依法独立行使审判权，不受非法干预</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+            <div class="feature-card">
+    <div class="feature-icon">
+        <i class="fas fa-gavel"></i>
+    </div>
+    <div class="feature-content">
+        <h3>
+            <span class="lang en">Military Justice Organization</span>
+            <span class="lang zh">军事司法组织</span>
+        </h3>
+        <p>
+            <span class="lang en">Specifies the establishment, duties, independence and legal authority of the Office of the Military Prosecutor.</span>
+            <span class="lang zh">本章规定军事检察院的设立、法定职责、独立地位与法定职权。</span>
+        </p>
+        <ul style="margin-top:1rem;padding-left:1.2rem;color:#ccc;line-height:1.6;">
+            <li>
+                <span class="lang en">Military prosecutors are nominated by Governor and confirmed by state legislature</span>
+                <span class="lang zh">军事检察官由州长提名、州议会审议任命</span>
+            </li>
+            <li>
+                <span class="lang en">Responsible for investigation, evidence collection and public prosecution in military courts</span>
+                <span class="lang zh">负责案件侦查、证据固定，并向军事法院提起公诉</span>
+            </li>
+            <li>
+                <span class="lang en">Prosecutors enjoy independent law enforcement power with strict accountability rules</span>
+                <span class="lang zh">检察官依法独立行使执法权，并受严格责任约束</span>
+            </li>
+            <li>
+                <span class="lang en">Authorized to issue subpoenas, seize evidence and coordinate cross-jurisdiction cases</span>
+                <span class="lang zh">有权签发传票、扣押物证，并协调跨司法管辖案件办理</span>
+            </li>
+        </ul>
+    </div>
+</div>
+            <div class="feature-card">
+    <div class="feature-icon">
+        <i class="fas fa-balance-scale"></i>
+    </div>
+    <div class="feature-content">
+        <h3>
+            <span class="lang en">Military Offenses & Punishments</span>
+            <span class="lang zh">军事违法行为与处罚</span>
+        </h3>
+        <p>
+            <span class="lang en">Classifies military violations into three tiers and sets clear penalties for all statutory military crimes.</span>
+            <span class="lang zh">本章将军事违法行为划分为三个等级，并对各类法定军事罪名设置明确处罚标准。</span>
+        </p>
+        <ul style="margin-top:1rem;padding-left:1.2rem;color:#ccc;line-height:1.6;">
+            <li>
+                <span class="lang en">Three offense tiers: minor, moderate and severe with corresponding courts</span>
+                <span class="lang zh">违法行为分为轻微、一般、严重三个等级，由对应层级军事法庭审理</span>
+            </li>
+            <li>
+                <span class="lang en">Covers disobedience, AWOL, desertion, confidentiality breach, corruption and more</span>
+                <span class="lang zh">涵盖拒不服从命令、擅离岗位、逃兵、泄密、职务贪腐等各类罪名</span>
+            </li>
+            <li>
+                <span class="lang en">Penalties include detention, fines, rank reduction and long-term military confinement</span>
+                <span class="lang zh">处罚种类包含拘禁、罚金、军衔降级、长期军事监禁</span>
+            </li>
+            <li>
+                <span class="lang en">Dual jurisdiction applies if service members commit ordinary civilian crimes</span>
+                <span class="lang zh">现役人员触犯普通民事犯罪时，适用军民双重司法管辖规则</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+            <div class="feature-card">
+    <div class="feature-icon">
+        <i class="fas fa-file-signature"></i>
+    </div>
+    <div class="feature-content">
+        <h3>
+            <span class="lang en">Military Justice Procedure</span>
+            <span class="lang zh">军事司法程序</span>
+        </h3>
+        <p>
+            <span class="lang en">Establishes three-level military court system, procedural rights of defendants and standardized evidence rules.</span>
+            <span class="lang zh">本章设立三级军事法院体系，明确被告人各项诉讼权利以及标准化证据采信规则。</span>
+        </p>
+        <ul style="margin-top:1rem;padding-left:1.2rem;color:#ccc;line-height:1.6;">
+            <li>
+                <span class="lang en">Three-tier court system: summary, special and general military courts</span>
+                <span class="lang zh">三级法院体系：简易军事法庭、专门军事法庭、普通军事法庭</span>
+            </li>
+            <li>
+                <span class="lang en">Defendants retain legal counsel, trial, confrontation and appeal rights</span>
+                <span class="lang zh">被告人享有委托律师、庭审质证、当庭抗辩以及上诉的权利</span>
+            </li>
+            <li>
+                <span class="lang en">Military personnel must record all official operations with body cameras</span>
+                <span class="lang zh">军人执行公务必须佩戴执法记录仪全程留存操作影像</span>
+            </li>
+            <li>
+                <span class="lang en">Prosecutors must comply with Brady Rule to disclose favorable evidence</span>
+                <span class="lang zh">检察官必须遵循布雷迪规则，主动提交对被告人有利的证据材料</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+            <div class="feature-card">
+    <div class="feature-icon">
+        <i class="fas fa-exclamation-triangle"></i>
+    </div>
+    <div class="feature-content">
+        <h3>
+            <span class="lang en">Administrative Disciplinary Measures</span>
+            <span class="lang zh">行政惩戒措施</span>
+        </h3>
+        <p>
+            <span class="lang en">Covers non-judicial disciplinary sanctions for minor misconduct and permanent separation penalties.</span>
+            <span class="lang zh">本章规定轻微违纪行为的非司法类惩戒方式，以及永久除名类处罚措施。</span>
+        </p>
+        <ul style="margin-top:1rem;padding-left:1.2rem;color:#ccc;line-height:1.6;">
+            <li>
+                <span class="lang en">Minor sanctions: warning, extra duty, restriction, fines and rank demotion</span>
+                <span class="lang zh">轻微处罚：警告、额外勤务、行动限制、罚金、军衔降级</span>
+            </li>
+            <li>
+                <span class="lang en">Sanctions shall not violate basic rest and legal rights of members</span>
+                <span class="lang zh">所有惩戒措施不得侵犯队员基本休息权与法定人身权利</span>
+            </li>
+            <li>
+                <span class="lang en">Severe repeated violations may result in involuntary discharge or dishonorable separation</span>
+                <span class="lang zh">多次严重违纪可予以强制退役、不名誉除名处理</span>
+            </li>
+            <li>
+                <span class="lang en">Discharged personnel are permanently banned from state military organizations</span>
+                <span class="lang zh">被除名人员将永久禁止加入本州各类军事相关组织</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+            <div class="feature-card">
+    <div class="feature-icon">
+        <i class="fas fa-file-plus"></i>
+    </div>
+    <div class="feature-content">
+        <h3>
+            <span class="lang en">Supplementary Provisions</span>
+            <span class="lang zh">附则</span>
+        </h3>
+        <p>
+            <span class="lang en">Regulates coordination with civilian laws, governor's pardon authority and code effective standards.</span>
+            <span class="lang zh">本章规范本法典与民事法律的衔接规则、州长赦免权限以及法典生效适用标准。</span>
+        </p>
+        <ul style="margin-top:1rem;padding-left:1.2rem;color:#ccc;line-height:1.6;">
+            <li>
+                <span class="lang en">Clarifies jurisdiction coordination between military and civilian courts</span>
+                <span class="lang zh">明确军事法庭与民事法院之间的司法管辖衔接规则</span>
+            </li>
+            <li>
+                <span class="lang en">The Governor holds supervision, pardon and sentence commutation power</span>
+                <span class="lang zh">州长拥有执法监督、赦免以及刑罚减刑的法定权限</span>
+            </li>
+            <li>
+                <span class="lang en">All official decisions of clemency must be issued in written form</span>
+                <span class="lang zh">所有官方赦免类决定必须以书面形式正式下达</span>
+            </li>
+            <li>
+                <span class="lang en">This code supersedes all prior inconsistent military regulatory documents</span>
+                <span class="lang zh">本法典效力优先于所有此前发布的冲突类军事规章制度</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+        <div style="margin-top:2rem;padding:1rem;border:1px solid #0066ff33;border-radius:8px;text-align:center;color:#aaa;">
+    <p>
+        <span class="lang en">The team reserves the right to take appropriate action against violations.</span>
+        <span class="lang zh">团队保留对各类违规行为采取相应处置措施的权利。</span>
+    </p>
+    <p style="color:red;margin-top:0.5rem;font-weight:bold;">
+        <span class="lang en">Serious violations may result in expulsion from the team!</span>
+        <span class="lang zh">严重违规行为团队将直接予以开除处理！</span>
+    </p>
+</div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="imprint.html">
+    <span class="lang en">Imprint</span>
+    <span class="lang zh">版权声明</span>
+</a>
+<a href="privacy.html">
+    <span class="lang en">Privacy</span>
+    <span class="lang zh">隐私政策</span>
+</a>
+            </div>
+            <div class="footer-copyright">
+                <p>
+    <span class="lang en">© 40th Mechanized Infantry Division. San Andreas Uniform Code of Military Justice (SA-UCMJ)</span>
+    <span class="lang zh">© 第40机械化步兵师 圣安地列斯统一军事司法法典（SA-UCMJ）</span>
+</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html> 
